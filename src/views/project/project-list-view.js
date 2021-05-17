@@ -23,7 +23,6 @@ constructor(){
     <!-- TODO: bad practice. Change this ---> 
     <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css"> 
     <!-- ./ TODO: bad practice. Change this ---> 
-
       <table class="pure-table">
       <thead>
       <tr><td>Project id</td><td>Project Name</td><td>Subject Name</td><td>Factor1 Name</td><td>Factor2 Name</td></tr>
@@ -49,4 +48,4 @@ constructor(){
 
 }
 
-customElements.define('list-projects', ProjectListView);
+customElements.define('project-list-view', ProjectListView);

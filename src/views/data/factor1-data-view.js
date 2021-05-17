@@ -2,43 +2,40 @@ import { LitElement, html, css } from 'lit-element';
 
 import { connect } from 'pwa-helpers';
 import { store } from '../../redux/store.js';
-import { ProjectListView } from '../project/list-project.js'
+import { ProjectListView } from '../project/project-list-view.js'
 import { Router } from '@vaadin/router';
 
 import {
-  addFactor1Config,
+  addfactor1Data,
   addProject
 } from '../../redux/actions.js';
 
 class Factor1DataView extends connect(store)(LitElement) {
 
-  connectedCallback() {
-    super.connectedCallback();
-    this.projectId = this.location.params.projectId;
-	}
-
-
   static get properties() {
     return {
-      projects: { type: Array },
-      projectId: { type: String },
-      lowValues: { type: Array },
-      highValues: { type: Array },
-      lowValue: { type: String },
-      highValue: { type: String }
-
+      projectId     :    { type : String  },
+      project       :    { type : Object  },
+      factor1Config :    { type : Object  },
+      factor1Datas  :    { type : Array   },
+      subject       :    {type: String    },
+      factor1Value  :    {type: String    }
     };
+  }
+
+  stateChanged(state) {
+    this.projectId      = this.location.params.projectId;
+    this.project        = state.projects.find(e=>e.id==this.projectId);
+    this.factor1Config  = state.factor1Configs.find(e => e.projectId==this.projectId);
   }
 
   constructor() {
     super();
-    this.lowValues = [];
-    this.highValues = [];
-  }
-
-  stateChanged(state) {
-    console.log("super !!");
-    console.log(state.factor1Configs);
+    this.factor1Config = {};
+    this.project       = {};
+    this.factor1Datas   = [];
+    this.subject = '';
+    this.factor1Value = '';
   }
 
   render() {
@@ -46,66 +43,35 @@ class Factor1DataView extends connect(store)(LitElement) {
     <form class="pure-form">
   <fieldset>
       <legend>Configure low and high values of factor1 <app-link href="/">Go back</app-link> </legend>
-      <label for="project-name">low value</label>
-      <input type="text" id="lowValue" placeholder="examples: 0-15, Green" @input=${this._handleLowvalueChange} value="${this.lowValue || ''}"
-    />
-    <button type="button" class="pure-button pure-button-primary" @click="${this.addLowValue}">Add low value</button>
-
-    <ul>${this.lowValues.map(item => html`<li>${item}</li>`)}</ul>
+      <label for="subject">${this.project.subjectName} : </label>
+      <input type="text" id="subject" placeholder="Example: class , teacher, pupil" @input="${e=>this.subject = e.target.value}" />
+      <label for="factor1-value">${this.project.factor1Name}:</label>
+      <input type="text" id="factor1-value"  @input="${e=>this.factor1Value = e.target.value}" />
+    <button type="button" class="pure-button pure-button-primary" @click="${this.addfactor1Values}">Add</button>
+    <ul>${this.factor1Datas.map(item => html`<li>${item.subject} , ${item.factor1Value}</li>`)}</ul>
     </fieldset>
-
+    <button type="button" class="pure-button pure-button-primary" @click="${this.savefactor1Data}">Save data</button>
 </form>
-<form class="pure-form">
-<fieldset>
-
-    <label for="subject-name">High value</label>
-    <input type="text" id="highValue" placeholder="examples: 0-15, Yellow, Red" @input=${this._handleHighvalueChange}  value="${this.highValue || ''}" />
-    <button type="button" class="pure-button pure-button-primary" @click="${this.addHighValue}">Add high value</button>
-    <ul>${this.highValues.map(item => html`<li>${item}</li>`)}</ul>
-    </fieldset>
-
-</form>
-
-  <button type="button" class="pure-button pure-button-primary" @click="${this.save}">Save</button>
-
   </div>
     </div>
-
-    <list-projects></list-projects>
-
     `;
   }
 
-  _handleLowvalueChange(e) {
-    this.lowValue = e.target.value;
-  }
-  _handleHighvalueChange(e) {
-    this.highValue = e.target.value;
-  }
-
-
-  addLowValue(e) {
-    if (this.lowValue) {
-      this.lowValues.push(this.lowValue);
+  addfactor1Values(){
+    let factor1Data = {
+      'subject'     : this.subject,
+      'factor1Value': this.factor1Value
     }
-    console.log(this.lowValues);
+    this.factor1Datas.push(factor1Data);
+    this.factor1Value = '';
+    this.subject      = '';
   }
 
-  addHighValue(e) {
-    if (this.highValue) {
-      this.highValues.push(this.highValue);
-    }
-    console.log(this.highValues);
-  }
-
-
-  save() {
-    store.dispatch(addFactor1Config(this.projectId, this.lowValues, this.highValues));
-    this.lowValues = [];
-    this.highValues = [];
-    this.lowValue = '';
-    this.highValue = '';
-    Router.go("/factor1Data/"+this.projectId);
+  savefactor1Data() {
+    store.dispatch(addfactor1Data(this.projectId, this.factor1Datas));
+    this.factor1Value = '';
+    this.subject      = '';
+    Router.go("/factor2Data/"+this.projectId);
   }
 
 
@@ -121,5 +87,4 @@ class Factor1DataView extends connect(store)(LitElement) {
     return this;
   }
 }
-/*${e=>this.page = e.target.selected}*/
 customElements.define('factor1-data-view', Factor1DataView);

@@ -2,9 +2,10 @@ import { LitElement, html, css } from 'lit-element';
 
 import { connect, installRouter } from 'pwa-helpers';
 import { store } from '../../redux/store.js';
-import './list-project.js'
+import './project-list-view.js'
 import nanoid from 'nanoid';
 import { Router } from '@vaadin/router';
+
 
 
 import {
@@ -25,6 +26,7 @@ class ProjectView extends connect(store)(LitElement) {
 
   stateChanged(state) {
     this.projects = state.projects;
+    console.log(state.factor2Datas);
   }
 
   render() {
@@ -65,9 +67,6 @@ class ProjectView extends connect(store)(LitElement) {
     </fieldset>
 </form>
     </div>
-
-    <list-projects></list-projects>
-
     `;
   }
 

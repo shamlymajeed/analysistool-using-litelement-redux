@@ -2,7 +2,7 @@ import { LitElement, html, css } from 'lit-element';
 
 import { connect } from 'pwa-helpers';
 import { store } from '../../redux/store.js';
-import { ProjectListView } from './list-project.js'
+import { ProjectListView } from './project-list-view.js'
 import { Router } from '@vaadin/router';
 
 import {
@@ -36,13 +36,13 @@ class Factor1ConfigView extends connect(store)(LitElement) {
     this.highValues = [];
   }
 
-  stateChanged(state) {
-    console.log("super !!");
-    console.log(state.factor1Configs);
-  }
-
   render() {
-    return html`<div class="input-layout">
+    return html`
+    <!-- TODO Bad practice change it -->
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css"> 
+    <!-- TODO Bad practice change it -->
+
+    <div class="input-layout">
     <form class="pure-form">
   <fieldset>
       <legend>Configure low and high values of factor1 <app-link href="/">Go back</app-link> </legend>
@@ -70,9 +70,6 @@ class Factor1ConfigView extends connect(store)(LitElement) {
 
   </div>
     </div>
-
-    <list-projects></list-projects>
-
     `;
   }
 

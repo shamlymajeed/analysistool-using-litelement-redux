@@ -1,6 +1,8 @@
 import './styles.css';
 import './views/project/factor1-config-view.js';
 import './views/data/factor1-data-view.js';
+import './views/data/factor2-data-view.js';
+import './views/home-view.js';
 
 
 import { Router } from '@vaadin/router';
@@ -15,12 +17,16 @@ function initRouter() {
   router.setRoutes([
     {
       path: '/',
-      component: 'project-view',
-      action: () => import('./views/project/project-view')    },
+      component: 'home-view',
+      action: () => import('./views/home-view')    },
+      {
+        path: '/project',
+        component: 'project-view',
+        action: () => import('./views/project/project-view')    },
     {
-      path: '/project',
-      component: 'project-view',
-      action: () => import('./views/project/project-view')
+      path: '/project/list',
+      component: 'project-list-view',
+      action: () => import('./views/project/project-list-view')
     },
     {
       path: '/factor1Config/:projectId',
@@ -31,6 +37,11 @@ function initRouter() {
       path: '/factor1Data/:projectId',
       component: 'factor1-data-view',
       action: () => import('./views/data/factor1-data-view')
+    },
+    {
+      path: '/factor2Data/:projectId',
+      component: 'factor2-data-view',
+      action: () => import('./views/data/factor2-data-view')
     },
     {
       path: '(.*)',
