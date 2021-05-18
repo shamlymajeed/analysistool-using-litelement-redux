@@ -43,7 +43,11 @@ class Factor2DataView extends connect(store)(LitElement) {
   }
 
   render() {
-    return html`<div class="input-layout">
+    return html`
+    <!-- TODO Bad practice change it -->
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css"> 
+    <!-- TODO Bad practice change it -->
+    <div class="input-layout">
     <form class="pure-form">
   <fieldset>
       <legend>Configure low and high values of factor1 <app-link href="/">Go back</app-link> </legend>

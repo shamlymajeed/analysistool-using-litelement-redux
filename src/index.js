@@ -1,10 +1,9 @@
 import './styles.css';
+import './views/home-view.js';
+
 import './views/project/factor1-config-view.js';
 import './views/data/factor1-data-view.js';
 import './views/data/factor2-data-view.js';
-import './views/home-view.js';
-
-
 import { Router } from '@vaadin/router';
 
 window.addEventListener('load', () => {

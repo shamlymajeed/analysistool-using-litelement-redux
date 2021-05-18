@@ -31,22 +31,26 @@ class Factor1DataView extends connect(store)(LitElement) {
 
   constructor() {
     super();
-    this.factor1Config = {};
-    this.project       = {};
+    this.factor1Config  = {};
+    this.project        = {};
     this.factor1Datas   = [];
-    this.subject = '';
-    this.factor1Value = '';
+    this.subject        = '';
+    this.factor1Value   = '';
   }
 
   render() {
-    return html`<div class="input-layout">
+    return html`
+    <!-- TODO Bad practice change it -->
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css"> 
+    <!-- TODO Bad practice change it -->
+    <div class="input-layout">
     <form class="pure-form">
   <fieldset>
       <legend>Configure low and high values of factor1 <app-link href="/">Go back</app-link> </legend>
       <label for="subject">${this.project.subjectName} : </label>
-      <input type="text" id="subject" placeholder="Example: class , teacher, pupil" @input="${e=>this.subject = e.target.value}" />
+      <input type="text" id="subject" placeholder="Example: class , teacher, pupil"  value="${this.subject || ''}" @input="${e=>this.subject = e.target.value}" />
       <label for="factor1-value">${this.project.factor1Name}:</label>
-      <input type="text" id="factor1-value"  @input="${e=>this.factor1Value = e.target.value}" />
+      <input type="text" id="factor1-value"   value="${this.factor1Value || ''}" @input="${e=>this.factor1Value = e.target.value}" />
     <button type="button" class="pure-button pure-button-primary" @click="${this.addfactor1Values}">Add</button>
     <ul>${this.factor1Datas.map(item => html`<li>${item.subject} , ${item.factor1Value}</li>`)}</ul>
     </fieldset>
@@ -72,15 +76,6 @@ class Factor1DataView extends connect(store)(LitElement) {
     this.factor1Value = '';
     this.subject      = '';
     Router.go("/factor2Data/"+this.projectId);
-  }
-
-
-  filterChanged(e) {
-    store.dispatch(updateFilter(e.detail.value));
-  }
-
-  clearCompleted() {
-    store.dispatch(clearCompleted());
   }
 
   createRenderRoot() {
