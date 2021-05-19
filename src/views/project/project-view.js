@@ -17,6 +17,10 @@ class ProjectView extends connect(store)(LitElement) {
     };
   }
 
+  constructor(){
+    super();
+  }
+
   render() {
     return html`
     <!-- TODO: bad practice. Change this ---> 

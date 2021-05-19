@@ -28,7 +28,6 @@ class Factor2DataView extends connect(store)(LitElement) {
     factor1Datas.factor1Data.forEach(element => {
       this.subjects.push(element.subject);
     });
-    console.log(this.subjects);
   }
 
   constructor() {

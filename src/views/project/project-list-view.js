@@ -6,9 +6,9 @@ class ProjectListView extends connect(store)(LitElement) {
  
   static get properties() {
       return {
-        projects   : { type: Array  }
-      };
+        projects   : { type: Array  }      };
   }
+  
 
   constructor(){
     super();
@@ -26,7 +26,7 @@ class ProjectListView extends connect(store)(LitElement) {
     <!-- ./ TODO: bad practice. Change this ---> 
     <table class="pure-table">
       <thead>
-      <tr><td>Project id</td><td>Project Name</td><td>Subject Name</td><td>Factor1 Name</td><td>Factor2 Name</td><td>Actions</td></tr>
+      <tr><td>Project id ${this.projectName}</td><td>Project Name</td><td>Subject Name</td><td>Factor1 Name</td><td>Factor2 Name</td><td>Actions</td></tr>
       </thead>
       <tbody>
         ${

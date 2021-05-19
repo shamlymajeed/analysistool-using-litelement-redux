@@ -46,7 +46,7 @@ class Factor1ConfigView extends connect(store)(LitElement) {
     <form class="pure-form">
     <fieldset>
       <label for="subject-name">High value</label>
-      <input type="text" id="highValue" placeholder="examples: 0-15, Yellow, Red"  @input="${e=>this.highValue = e.target.value}" value="${this.highValue || ''}" />
+      <input type="text" id="highValue" placeholder="examples: 15-30, Yellow, Red"  @input="${e=>this.highValue = e.target.value}" value="${this.highValue || ''}" />
       <button type="button" class="pure-button pure-button-primary" @click="${this.addHighValue}">Add high value</button>
       <ul>${this.highValues.map(item => html`<li>${item}</li>`)}</ul>
     </fieldset>

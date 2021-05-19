@@ -4,6 +4,7 @@ import './views/home-view.js';
 import './views/project/factor1-config-view.js';
 import './views/data/factor1-data-view.js';
 import './views/data/factor2-data-view.js';
+import './views/project/run-analysis-view.js';
 import { Router } from '@vaadin/router';
 
 window.addEventListener('load', () => {
@@ -41,6 +42,11 @@ function initRouter() {
       path: '/factor2Data/:projectId',
       component: 'factor2-data-view',
       action: () => import('./views/data/factor2-data-view')
+    },
+    {
+      path: '/project/run/:projectId',
+      component: 'run-analysis-view',
+      action: () => import('./views/project/run-analysis-view')
     },
     {
       path: '(.*)',
